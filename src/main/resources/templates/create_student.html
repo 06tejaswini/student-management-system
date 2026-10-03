@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Student Management System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <!--             @{/students/new} - here this is the link expression to define the link -->
+          <a class="nav-link active" aria-current="page" th:href="@{/students/new}">Create New Student</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br> <br> <br>
+<div class="container row col-md-8 offset-md-2">
+  <div class="card">
+    <div class="card-header">
+        <h2 class="text-center"> Create Student</h2>
+    </div>
+    <div class="card-body">
+<!--      Link expression to define a link for form action
+          th:object attribute points to the name of the model object sent from spring MVC controller-->
+      <form method="post" role="form" th:action="@{/students}" th:object="${student}">
+        <div class="form-group mb-3">
+          <label class="form-label" for="firstName">Student First Name</label>
+<!--          selection expression to access the model object attribute, when user give the then it will save in firstName-->
+          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name" th:field="*{firstName}">
+          <p th:if="${#fields.hasErrors('firstName')}" class="text-danger" th:errors="*{firstName}"></p>
+          <label class="form-label" for="lastName">Student Last Name</label>
+          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name" th:field="*{lastName}">
+          <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
+          <label class="form-label" for="email">Student Email-Id</label>
+          <input type="email" class="form-control" id="email" name="email" autocomplete="email" placeholder="Enter Your Email Id" th:field="*{email}">
+          <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
